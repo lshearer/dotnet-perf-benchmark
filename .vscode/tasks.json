@@ -1,15 +1,46 @@
 {
-    "version": "0.1.0",
-    "command": "dotnet",
+    "version": "2.0.0",
     "isShellCommand": true,
-    "args": [],
     "tasks": [
         {
             "taskName": "build",
+            "command": "dotnet",
             "args": [
+                "build",
                 "${workspaceRoot}/DotnetCoreBenchmark/DotnetCoreBenchmark.csproj"
             ],
             "isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "run-tests-mac",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "-c Release"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/DotnetCoreBenchmark"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "run-tests-docker",
+            "command": "bash",
+            "args": [
+                "-c",
+                "docker build -t dotnet-perf-benchmark . && docker run --rm dotnet-perf-benchmark"
+            ]
+        },
+        {
+            "taskName": "restore",
+            "command": "dotnet",
+            "args": [
+                "restore"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/DotnetCoreBenchmark"
+            },
             "problemMatcher": "$msCompile"
         }
     ]

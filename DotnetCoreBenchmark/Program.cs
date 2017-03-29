@@ -163,8 +163,7 @@ namespace DotnetCoreBenchmark
 
         private static string GetProjectDirectory()
         {
-            // TODO
-            return "/Users/lyleshearer/Code/dotnet-core-perf-comparison/1.1.1/DotnetCoreBenchmark";
+            return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../.."));
         }
 
         private static async Task<Func<Task>> StartServer(string url)
