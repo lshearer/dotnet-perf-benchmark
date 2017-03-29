@@ -29,12 +29,14 @@ namespace DotnetCoreBenchmark
 
             try
             {
+                var requests = 10000;
+
                 // Warm up the server
                 var simpleResults = await RunSimpleTests(10);
                 var proxyResults = await RunProxyTests(10);
 
-                simpleResults = await RunSimpleTests(100);
-                proxyResults = await RunProxyTests(100);
+                simpleResults = await RunSimpleTests(requests);
+                proxyResults = await RunProxyTests(requests);
 
                 Console.WriteLine(new String('=', 80));
                 PrintResultsSummary(simpleResults, "Hello world requests", false);
@@ -61,6 +63,7 @@ namespace DotnetCoreBenchmark
 
             Console.WriteLine($"Summary: {title}");
             Console.WriteLine($"{successfulResults.Count}/{results.Count} succeeded.");
+            Console.WriteLine($"{successfulResults.Count / successfulResults.Sum(result => result.RequestTime.TotalSeconds)} requests/second");
             Console.WriteLine($"Total request times:");
             PrintStats(times);
 
